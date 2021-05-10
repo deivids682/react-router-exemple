@@ -1,6 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import NavPills from "../../components/NavPills";
+import NavLink from "../../components/NavLink";
 import fetchWrapper from "../../fetchWrapper";
 
 export default class Categories extends React.Component {
@@ -16,7 +16,6 @@ export default class Categories extends React.Component {
       });
   }
   render() {
-    console.log(this.state.categories);
     return (
       <NavPills>
         {this.state.categories &&

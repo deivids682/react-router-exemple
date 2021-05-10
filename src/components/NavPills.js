@@ -1,11 +1,15 @@
+import styled from "styled-components";
+
 function NavPills(props) {
-  return (
-    <div>
-      <div className="col-1">
-        <div className="nav flex-column nav-pills">{props.children}</div>
-      </div>
-    </div>
-  );
+  return <Sidebar>{props.children}</Sidebar>;
 }
 
 export default NavPills;
+
+const Sidebar = styled.div`
+  background-color: #daad86;
+  width: 8vw;
+  min-width: 150px;
+  height: 100vh;
+  position: fixed;
+`;
