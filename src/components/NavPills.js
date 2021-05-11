@@ -12,4 +12,6 @@ const Sidebar = styled.div`
   min-width: 150px;
   height: 100vh;
   position: fixed;
+  display: absolute;
+  top: 0;
 `;

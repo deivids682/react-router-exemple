@@ -28,9 +28,18 @@ export default SearchBox;
 const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 4rem;
 
   input {
     color: #00b4cc;
+    border: 3px solid #00b4cc;
+    border-radius: none;
+    outline: none;
+    width: 24vw;
+
+    &:focus {
+      color: #00b4cc;
+    }
   }
 `;
 
@@ -38,4 +47,9 @@ const StyledButton = styled.button`
   width: 40px;
   height: 35px;
   border: 1px solid #00b4cc;
+  background: #00b4cc;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 0 5px 5px 0;
 `;

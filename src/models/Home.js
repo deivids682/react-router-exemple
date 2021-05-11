@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import SearchBox from "../components/SearchBox";
+import SearchResultList from "../components/SearchResultList";
 import fetchWrapper from "../fetchWrapper";
 import Categories from "./meals/Categories";
 
@@ -38,6 +39,7 @@ export default class Home extends React.Component {
         <Categories />
         <Content>
           <SearchBox onSubmit={this.onSubmit} />
+          <SearchResultList mealsList={this.state.mealsList} />
         </Content>
       </div>
     );

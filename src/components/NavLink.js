@@ -12,11 +12,11 @@ const StyledLink = styled(Link)`
   padding: 5px 30px 5px 30px;
   color: #fff;
   display: block;
+  text-decoration: none;
   text-align: center;
 
   &:hover {
     background-color: #659dbd;
-    text-decoration: none;
     color: #fff;
   }
 `;
