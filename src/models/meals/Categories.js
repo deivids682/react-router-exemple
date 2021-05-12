@@ -2,6 +2,7 @@ import React from "react";
 import NavPills from "../../components/NavPills";
 import NavLink from "../../components/NavLink";
 import fetchWrapper from "../../fetchWrapper";
+import { PUBLIC_ROUTES } from "../../publicRoutes";
 
 export default class Categories extends React.Component {
   state = {
@@ -21,7 +22,12 @@ export default class Categories extends React.Component {
         {this.state.categories &&
           this.state.categories.map((categorie, key) => {
             return (
-              <NavLink key={key} to={`/categorie/${categorie.strCategory}`}>
+              <NavLink
+                key={key}
+                to={PUBLIC_ROUTES.mealsByCategoryPage.getPath(
+                  categorie.strCategory
+                )}
+              >
                 {categorie.strCategory}
               </NavLink>
             );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PUBLIC_ROUTES } from "../publicRoutes";
 
 function MealCard({ meal }) {
   return (
@@ -12,7 +13,10 @@ function MealCard({ meal }) {
         />
         <div className="card-body">
           <h5 className="card-title">{meal.strMeal}</h5>
-          <Link to={`/meal/${meal.idMeal}`} className="btn btn-primary">
+          <Link
+            to={PUBLIC_ROUTES.mealByIdPage.getPath(meal.idMeal)}
+            className="btn btn-primary"
+          >
             Atvert edienu
           </Link>
         </div>
