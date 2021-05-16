@@ -1,14 +1,18 @@
+import _ from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 import MealCard from "../../components/MealCard";
+import SearchResultList from "../../components/SearchResultList";
 import fetchWrapper from "../../fetchWrapper";
 
 export default class MealsByCategory extends React.Component {
   state = {
     mealByCategoryData: [],
+    pageNumber: 1,
   };
 
   componentDidMount() {
+    this.changePage = this.changePage.bind(this);
     this.getMealByCategory(this.props.category);
   }
 
@@ -21,17 +25,27 @@ export default class MealsByCategory extends React.Component {
       });
   }
 
+  changePage = (pageNumber, callback) =>
+    this.setState({ ...this.state, pageNumber }, () => callback());
+
   render() {
+    const { mealByCategoryData } = this.state;
+    const startIndex = (this.state.pageNumber - 1) * 5;
+    const endIndex = startIndex + 5;
     return (
       <>
-        <div
-          className="row row-cols-1 row-cols-md-5"
-          style={{ maxWidth: "100%" }}
-        >
-          {this.state?.mealByCategoryData.map((meal) => {
-            return <MealCard meal={meal} />;
-          })}
-        </div>
+        <SearchResultList
+          isGrid
+          length={mealByCategoryData.length}
+          mealsList={_.slice(
+            mealByCategoryData,
+            startIndex,
+            endIndex > mealByCategoryData.length
+              ? mealByCategoryData.length
+              : endIndex
+          )}
+          changePage={this.changePage}
+        />
       </>
     );
   }

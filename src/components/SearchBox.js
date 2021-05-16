@@ -32,6 +32,7 @@ const SearchWrapper = styled.div`
 
   input {
     color: #00b4cc;
+    background-color: #fbeec1;
     border: 3px solid #00b4cc;
     border-radius: none;
     outline: none;

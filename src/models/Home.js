@@ -1,17 +1,21 @@
+import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
 import SearchBox from "../components/SearchBox";
 import SearchResultList from "../components/SearchResultList";
 import fetchWrapper from "../fetchWrapper";
 import Categories from "./meals/Categories";
+import RandomMeals from "./meals/RandomMeals";
 
 export default class Home extends React.Component {
   state = {
     mealsList: [],
+    pageNumber: 1,
   };
 
   componentDidMount() {
     this.onSubmit = this.onSubmit.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   onSubmit = (searchInputText, setSearchInputTextClean) => {
@@ -33,13 +37,30 @@ export default class Home extends React.Component {
       });
   }
 
+  changePage = (pageNumber, callback) =>
+    this.setState({ ...this.state, pageNumber }, () => callback());
+
   render() {
+    const { mealsList } = this.state;
+    const startIndex = (this.state.pageNumber - 1) * 5;
+    const endIndex = startIndex + 5;
+
     return (
       <div>
         <Categories />
         <Content>
           <SearchBox onSubmit={this.onSubmit} />
-          <SearchResultList mealsList={this.state.mealsList} />
+          <SearchResultList
+            isGrid={false}
+            length={mealsList.length}
+            mealsList={_.slice(
+              mealsList,
+              startIndex,
+              endIndex > mealsList.length ? mealsList.length : endIndex
+            )}
+            changePage={this.changePage}
+          />
+          <RandomMeals />
         </Content>
       </div>
     );
