@@ -37,6 +37,7 @@ const SearchWrapper = styled.div`
     border-radius: none;
     outline: none;
     width: 24vw;
+    background-color: #fbeec1;
 
     &:focus {
       color: #00b4cc;
