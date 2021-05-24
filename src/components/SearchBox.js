@@ -1,8 +1,15 @@
 import { useState } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import { fetchMealBySearchValue } from "../actions";
 
 function SearchBox(props) {
   const [searchInputText, setSearchInputText] = useState("");
+
+  const getMealListAndCleanSerchBox = () => {
+    props.fetchMealBySearchValue(searchInputText);
+    setSearchInputText("");
+  };
   return (
     <SearchWrapper>
       <input
@@ -11,19 +18,14 @@ function SearchBox(props) {
         value={searchInputText}
         onChange={(event) => setSearchInputText(event.target.value)}
       />
-      <StyledButton
-        type="submit"
-        onClick={() =>
-          props.onSubmit(searchInputText, () => setSearchInputText(""))
-        }
-      >
+      <StyledButton type="submit" onClick={getMealListAndCleanSerchBox}>
         <i className="fa fa-search"></i>
       </StyledButton>
     </SearchWrapper>
   );
 }
 
-export default SearchBox;
+export default connect(null, { fetchMealBySearchValue })(SearchBox);
 
 const SearchWrapper = styled.div`
   display: flex;
