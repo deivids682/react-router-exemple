@@ -8,20 +8,9 @@ import fetchWrapper from "../fetchWrapper";
 import Categories from "./meals/Categories";
 
 class Home extends React.Component {
-  state = {
-    pageNumber: 1,
-  };
-
-  componentDidMount() {
-    this.changePage = this.changePage.bind(this);
-  }
-
-  changePage = (pageNumber, callback) =>
-    this.setState({ ...this.state, pageNumber }, () => callback());
-
   render() {
-    const { mealsList } = this.props;
-    const startIndex = (this.state.pageNumber - 1) * 5;
+    const { mealsList, pageNumber } = this.props;
+    const startIndex = (pageNumber - 1) * 5;
     const endIndex = startIndex + 5;
 
     return (
@@ -37,7 +26,6 @@ class Home extends React.Component {
               startIndex,
               endIndex > mealsList.length ? mealsList.length : endIndex
             )}
-            changePage={this.changePage}
           />
         </Content>
       </div>
@@ -48,6 +36,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     mealsList: state.meals.mealsList,
+    pageNumber: state.meals.pageNumber,
   };
 };
 

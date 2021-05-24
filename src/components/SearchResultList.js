@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Pagination from "./Pagination";
 import SingleResult from "./SingleResult";
 
-function SearchResultList({ mealsList, changePage, length, isGrid }) {
+function SearchResultList({ mealsList, length, isGrid }) {
   return (
     <>
       <SearchResultWrapper isGrid={isGrid}>
@@ -10,7 +10,7 @@ function SearchResultList({ mealsList, changePage, length, isGrid }) {
           return <SingleResult key={key} meal={meal} isGrid={isGrid} />;
         })}
       </SearchResultWrapper>
-      {length > 5 && <Pagination pages={length / 5} changePage={changePage} />}
+      {length > 5 && <Pagination pages={length / 5} />}
     </>
   );
 }

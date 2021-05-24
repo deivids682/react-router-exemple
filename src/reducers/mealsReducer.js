@@ -2,6 +2,7 @@ import { actionsTypes } from "../actions";
 
 const initState = {
   mealsList: [],
+  pageNumber: 1,
 };
 
 export default (state = initState, action) => {
@@ -9,6 +10,11 @@ export default (state = initState, action) => {
     return {
       ...state,
       mealsList: action.payload,
+    };
+  } else if (action.type === actionsTypes.CHAGE_PAGE_NUMBER) {
+    return {
+      ...state,
+      pageNumber: action.payload,
     };
   }
   return state;

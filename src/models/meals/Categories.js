@@ -4,10 +4,13 @@ import NavLink from "../../components/NavLink";
 import { PUBLIC_ROUTES } from "../../publicRoutes";
 import { connect } from "react-redux";
 import { fetchCategories } from "../../actions";
+import _ from "lodash";
 
 function Categories(props) {
   useEffect(() => {
-    props.fetchCategories();
+    if (_.isEmpty(props.categories)) {
+      props.fetchCategories();
+    }
   });
   return (
     <>

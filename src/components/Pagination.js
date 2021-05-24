@@ -1,19 +1,22 @@
 import _ from "lodash";
-import { useState } from "react";
+import { connect } from "react-redux";
 import styled, { css } from "styled-components";
+import { changePageNumber } from "../actions";
 
 function Pagination(props) {
-  const [activePage, setActivePage] = useState(1);
-
   const pages = _.range(1, props.pages + 1);
+
+  const actionChangePage = (page) => {
+    props.changePageNumber(page);
+  };
 
   return (
     <StyledPagination>
       {pages.map((page, index) => (
         <StyledBottom
-          isActive={activePage === page}
+          isActive={props.pageNumber === page}
           key={index}
-          onClick={() => props.changePage(page, () => setActivePage(page))}
+          onClick={() => actionChangePage(page)}
         >
           {page}
         </StyledBottom>
@@ -22,7 +25,13 @@ function Pagination(props) {
   );
 }
 
-export default Pagination;
+const mapStateToProps = (state) => {
+  return {
+    pageNumber: state.meals.pageNumber,
+  };
+};
+
+export default connect(mapStateToProps, { changePageNumber })(Pagination);
 
 const StyledBottom = styled.a`
   ${(props) =>
