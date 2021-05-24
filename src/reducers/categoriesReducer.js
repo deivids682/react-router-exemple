@@ -1,4 +1,4 @@
-import { actionsTypes } from "../actions";
+import { actionsTypes } from "../actions/constants";
 
 const initState = [];
 

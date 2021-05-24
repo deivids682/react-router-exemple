@@ -1,52 +1,50 @@
 import _ from "lodash";
-import React from "react";
-import { Link } from "react-router-dom";
-import MealCard from "../../components/MealCard";
+import React, { useEffect, useState } from "react";
+import { connect, useStore } from "react-redux";
 import SearchResultList from "../../components/SearchResultList";
-import fetchWrapper from "../../fetchWrapper";
+import {
+  fetchMealByCategory,
+  changePageNumber,
+  cleanMealByCategory,
+} from "../../actions";
 
-export default class MealsByCategory extends React.Component {
-  state = {
-    mealByCategoryData: [],
-    pageNumber: 1,
-  };
+function MealsByCategory(props) {
+  useEffect(() => {
+    props.fetchMealByCategory(props.category);
 
-  componentDidMount() {
-    this.changePage = this.changePage.bind(this);
-    this.getMealByCategory(this.props.category);
-  }
+    return () => {
+      changePageNumber(1);
+    };
+  }, []);
 
-  getMealByCategory(category) {
-    fetchWrapper
-      .get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-      .then((res) => {
-        console.log(res);
-        this.setState({ ...this.state, mealByCategoryData: res.meals });
-      });
-  }
-
-  changePage = (pageNumber, callback) =>
-    this.setState({ ...this.state, pageNumber }, () => callback());
-
-  render() {
-    const { mealByCategoryData } = this.state;
-    const startIndex = (this.state.pageNumber - 1) * 5;
-    const endIndex = startIndex + 5;
-    return (
-      <>
-        <SearchResultList
-          isGrid
-          length={mealByCategoryData.length}
-          mealsList={_.slice(
-            mealByCategoryData,
-            startIndex,
-            endIndex > mealByCategoryData.length
-              ? mealByCategoryData.length
-              : endIndex
-          )}
-          changePage={this.changePage}
-        />
-      </>
-    );
-  }
+  const { mealByCategoryList } = props;
+  const startIndex = (props.pageNumber - 1) * 5;
+  const endIndex = startIndex + 5;
+  return (
+    <>
+      <SearchResultList
+        isGrid
+        length={mealByCategoryList.length}
+        mealsList={_.slice(
+          mealByCategoryList,
+          startIndex,
+          endIndex > mealByCategoryList.length
+            ? mealByCategoryList.length
+            : endIndex
+        )}
+      />
+    </>
+  );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    mealByCategoryList: state.meals.mealByCategoryList,
+    pageNumber: state.meals.pageNumber,
+  };
+};
+export default connect(mapStateToProps, {
+  fetchMealByCategory,
+  changePageNumber,
+  cleanMealByCategory,
+})(MealsByCategory);
